@@ -104,6 +104,9 @@ function addActionsForHtmlUI(){
 
   //replay button event
   document.getElementById('replayButton').onclick = function() {replayDrawing()};
+
+  //undo button event
+  document.getElementById('undoButton').onclick = function() {undoLastShape()};
 }
 
 function main() {
@@ -183,6 +186,14 @@ function convertCoordinatesEventToGL(ev) {
   x = ((x - rect.left) - canvas.width/2)/(canvas.width/2);
   y = (canvas.height/2 - (y - rect.top))/(canvas.height/2);
   return([x, y]);
+}
+
+function undoLastShape(){
+  if (g_shapesList.length==0){
+    return;
+  }
+  g_shapesList.pop();
+  renderAllShapes();
 }
 
 function replayDrawing(){
