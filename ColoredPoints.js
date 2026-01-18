@@ -74,12 +74,13 @@ let g_selectedColor=[1.0, 1.0, 1.0, 1.0];
 let g_selectedSize = 5;
 let g_selectedType = POINT;
 let g_selectedSegments = 2;
+let g_alpha = 1.0;
 
 function addActionsForHtmlUI(){
 
   //button events
-  document.getElementById('green').onclick = function () { g_selectedColor = [0.0, 1.0, 0.0, 1.0]; };
-  document.getElementById('red').onclick = function () { g_selectedColor = [1.0, 0.0, 0.0, 1.0]; };
+  document.getElementById('green').onclick = function () { g_selectedColor = [0.0, 1.0, 0.0, g_alpha]; };
+  document.getElementById('red').onclick = function () { g_selectedColor = [1.0, 0.0, 0.0, g_alpha]; };
   document.getElementById('clearButton').onclick = function () { g_shapesList = []; renderAllShapes(); };
 
   document.getElementById('pointButton').onclick = function() {g_selectedType=POINT};
@@ -88,14 +89,18 @@ function addActionsForHtmlUI(){
   document.getElementById('draw').onclick = function() {drawPicture();};
 
   //color slider events
-  document.getElementById('redSlide').addEventListener('mouseup',function() { g_selectedColor[0] = this.value/100; });
-  document.getElementById('greenSlide').addEventListener('mouseup',function() { g_selectedColor[1] = this.value/100; });
-  document.getElementById('blueSlide').addEventListener('mouseup',function() { g_selectedColor[2] = this.value/100; });
+  document.getElementById('redSlide').addEventListener('mouseup',function() { g_selectedColor[0] = this.value/100; g_selectedColor[3] = g_alpha;});
+  document.getElementById('greenSlide').addEventListener('mouseup',function() { g_selectedColor[1] = this.value/100; g_selectedColor[3] = g_alpha; });
+  document.getElementById('blueSlide').addEventListener('mouseup',function() { g_selectedColor[2] = this.value/100; g_selectedColor[3] = g_alpha;});
 
   //size slider events
   document.getElementById('sizeSlide').addEventListener('mouseup',function() {g_selectedSize=this.value;});
+
+  //segment slider events
   document.getElementById('segmentSlide').addEventListener('mouseup',function() {g_selectedSegments=this.value;});
 
+  //alpha slider events
+  document.getElementById('alphaSlide').addEventListener('mouseup',function() {g_alpha = this.value/100;});
 }
 
 function main() {
@@ -114,6 +119,10 @@ function main() {
 
   // Specify the color for clearing <canvas>
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+  //add blending
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT);
@@ -142,6 +151,7 @@ function click(ev) {
   }
   point.position=[x, y];
   point.color=g_selectedColor.slice();
+  point.color[3] = g_alpha;
   point.size=g_selectedSize;
   point.segments=g_selectedSegments;
   g_shapesList.push(point);
