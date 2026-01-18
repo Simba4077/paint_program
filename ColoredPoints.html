@@ -6,10 +6,20 @@
   </head>
 
   <body onload="main()">
-    <canvas id="webgl" width="400" height="400">
-    Please use a browser that supports "canvas"
-    </canvas>
+    <div style="display:flex;align-items:flex-start; gap:16px"> 
 
+        <canvas id="webgl" width="400" height="400">
+        Please use a browser that supports "canvas"
+        </canvas>
+        
+        <img 
+          src="drawing.jpg" 
+          alt="drawing reference"
+          width="200"
+          style="border:10px solid #ccc;"
+        />
+    
+    </div>
     <p id="numdot"> XXX </p>
 
 
@@ -47,7 +57,7 @@
     </p>
     
     <p>
-    Segments <input type="range" min="2" max="100" value="2" id="segmentSlide">
+    Segments <input type="range" min="5" max="100" value="12" id="segmentSlide">
     </p>
   
     
