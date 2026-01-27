@@ -4,7 +4,7 @@ Help/resources used:
 2. Chat GPT for additional "awesome" features:  
 
 "how can i add alpha/transparency option to a canvas in html/js"  
-"how can i tailor that feature to how my code is set up right now: my_code"  
+"how can i tailor that feature to how my code is set up right now: <code>"  
 "i also want to make a button that replays the drawings that were made (points in the array), how could i do that? do i just clear the canvas and add a delay and re-render the points in the array"  
   
 Here is my GPT chatlog:  
